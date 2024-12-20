@@ -3,32 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ball Jump Game</title>
+  <title>Image Viewer with Ads</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div class="game-container">
-    <!-- Ad Space (Optional) -->
+  <div class="image-viewer">
+    <!-- Image Section -->
+    <img id="image-display" src="https://via.placeholder.com/600x400?text=Image+1" alt="Image" class="image">
+    
+    <!-- Ad Space -->
     <div class="ad-space">
-      <a href="https://www.profitablecpmrate.com/khsmku6nq?key=d83c7fac9cd6350e6e74522ed87e385d" target="_blank">
-        <img src="https://via.placeholder.com/600x100?text=Your+Ad+Here" alt="Ad Banner" style="width: 100%; max-width: 600px; height: auto;">
+      <a href="https://example.com" target="_blank">
+        <img src="https://via.placeholder.com/600x100?text=Your+Ad+Here" alt="Ad Banner" class="ad-banner">
       </a>
     </div>
-
-    <!-- Game Title -->
-    <header>
-      <h1 id="game-title">Ball Jump Game</h1>
-    </header>
-
-    <!-- Game Area -->
-    <div class="game-area">
-      <canvas id="game-canvas"></canvas>
-    </div>
-
-    <!-- Controls -->
-    <div class="controls">
-      <p>Score: <span id="score">0</span></p>
-    </div>
+    
+    <p id="ad-timer">Next ad in: <span id="countdown">5</span> seconds</p>
   </div>
 
   <script src="script.js"></script>
