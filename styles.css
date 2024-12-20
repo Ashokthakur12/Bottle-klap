@@ -1,108 +1,106 @@
+// Canvas setup
 const canvas = document.getElementById('game-canvas');
 const ctx = canvas.getContext('2d');
-
-// Canvas dimensions
-canvas.width = 400;
+canvas.width = 600;
 canvas.height = 400;
 
-// Snake and game variables
-let snake = [{ x: 200, y: 200 }];
-let food = { x: 100, y: 100 };
-let direction = 'RIGHT';
+// Game variables
+let ball = { x: 50, y: 350, radius: 10, dy: 0, onGround: true };
+let obstacles = [];
 let score = 0;
-let gameInterval;
+let gameOver = false;
 
-// Draw the snake
-function drawSnake() {
-  snake.forEach((segment) => {
-    ctx.fillStyle = 'lime';
-    ctx.fillRect(segment.x, segment.y, 20, 20);
+// Gravity and physics
+const gravity = 0.5;
+const jumpPower = -10;
+
+// Create obstacles
+function createObstacle() {
+  const width = 30;
+  const height = Math.random() * 100 + 20;
+  const x = canvas.width;
+  const y = canvas.height - height;
+  obstacles.push({ x, y, width, height });
+}
+
+// Draw ball
+function drawBall() {
+  ctx.beginPath();
+  ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
+  ctx.fillStyle = 'lime';
+  ctx.fill();
+  ctx.closePath();
+}
+
+// Draw obstacles
+function drawObstacles() {
+  ctx.fillStyle = 'red';
+  obstacles.forEach(obstacle => {
+    ctx.fillRect(obstacle.x, obstacle.y, obstacle.width, obstacle.height);
   });
 }
 
-// Generate random food position
-function generateFood() {
-  food.x = Math.floor(Math.random() * (canvas.width / 20)) * 20;
-  food.y = Math.floor(Math.random() * (canvas.height / 20)) * 20;
-}
+// Update game state
+function updateGame() {
+  // Ball physics
+  if (!ball.onGround) {
+    ball.dy += gravity;
+    ball.y += ball.dy;
 
-// Draw food
-function drawFood() {
-  ctx.fillStyle = 'red';
-  ctx.fillRect(food.x, food.y, 20, 20);
-}
-
-// Move the snake
-function moveSnake() {
-  const head = { ...snake[0] };
-
-  if (direction === 'UP') head.y -= 20;
-  if (direction === 'DOWN') head.y += 20;
-  if (direction === 'LEFT') head.x -= 20;
-  if (direction === 'RIGHT') head.x += 20;
-
-  snake.unshift(head);
-
-  // Check if the snake eats food
-  if (head.x === food.x && head.y === food.y) {
-    score++;
-    document.getElementById('score').innerText = score;
-    generateFood();
-  } else {
-    snake.pop(); // Remove the tail
-  }
-}
-
-// Check for collisions
-function checkCollision() {
-  const head = snake[0];
-  // Wall collision
-  if (head.x < 0 || head.x >= canvas.width || head.y < 0 || head.y >= canvas.height) {
-    endGame();
-  }
-  // Self collision
-  for (let i = 1; i < snake.length; i++) {
-    if (head.x === snake[i].x && head.y === snake[i].y) {
-      endGame();
+    // Check if ball hits the ground
+    if (ball.y > canvas.height - ball.radius) {
+      ball.y = canvas.height - ball.radius;
+      ball.onGround = true;
     }
   }
+
+  // Update obstacle positions
+  obstacles.forEach(obstacle => {
+    obstacle.x -= 5;
+  });
+
+  // Remove obstacles that go off-screen
+  obstacles = obstacles.filter(obstacle => obstacle.x + obstacle.width > 0);
+
+  // Collision detection
+  obstacles.forEach(obstacle => {
+    if (
+      ball.x + ball.radius > obstacle.x &&
+      ball.x - ball.radius < obstacle.x + obstacle.width &&
+      ball.y + ball.radius > obstacle.y
+    ) {
+      gameOver = true;
+    }
+  });
+
+  // Increase score
+  score++;
+  document.getElementById('score').innerText = score;
+
+  // End game if game over
+  if (gameOver) {
+    alert(`Game Over! Your score: ${score}`);
+    document.location.reload();
+  }
 }
 
-// End the game
-function endGame() {
-  clearInterval(gameInterval);
-  alert(`Game Over! Final Score: ${score}`);
-  document.location.reload();
+// Draw the game
+function drawGame() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  drawBall();
+  drawObstacles();
 }
 
 // Game loop
 function gameLoop() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  drawSnake();
-  drawFood();
-  moveSnake();
-  checkCollision();
+  if (!gameOver) {
+    updateGame();
+    drawGame();
+    requestAnimationFrame(gameLoop);
+  }
 }
 
-// Start the game
-function startGame() {
-  generateFood();
-  gameInterval = setInterval(gameLoop, 100);
-}
-
-// Handle keyboard input
-document.addEventListener('keydown', (event) => {
-  const key = event.key;
-  if (key === 'ArrowUp' && direction !== 'DOWN') direction = 'UP';
-  if (key === 'ArrowDown' && direction !== 'UP') direction = 'DOWN';
-  if (key === 'ArrowLeft' && direction !== 'RIGHT') direction = 'LEFT';
-  if (key === 'ArrowRight' && direction !== 'LEFT') direction = 'RIGHT';
-});
-
-// Ad Redirection every 15 seconds
-setInterval(() => {
-  window.open('https://www.profitablecpmrate.com/khsmku6nq?key=d83c7fac9cd6350e6e74522ed87e385d', '_blank');
-}, 15000);
-
-// Initialize game
-startGame();
+// Jump event
+document.addEventListener('keydown', (e) => {
+  if (e.key === ' ' && ball.onGround) {
+    ball.dy = jumpPower;
