@@ -1,65 +1,46 @@
-let score = 0;
-const canvas = document.getElementById('game-canvas');
-const ctx = canvas.getContext('2d');
-canvas.width = canvas.clientWidth;
-canvas.height = canvas.clientHeight;
-
-const colors = ['red', 'blue', 'green', 'yellow', 'purple', 'orange'];
-let selectedColor = null;
-
-// Utility Functions
-function getRandomColor() {
-  return colors[Math.floor(Math.random() * colors.length)];
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f0f0f0;
+  color: #333;
 }
 
-function drawBottle(x, y, width, height, color = 'white') {
-  ctx.fillStyle = color;
-  ctx.fillRect(x, y, width, height);
-  ctx.strokeStyle = '#000';
-  ctx.strokeRect(x, y, width, height);
+.game-container {
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 20px;
 }
 
-function clearCanvas() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
+header {
+  margin-bottom: 10px;
 }
 
-function updateScore(points) {
-  score += points;
-  document.getElementById('score').innerText = score;
+#game-title {
+  font-size: 2rem;
+  color: #4CAF50;
 }
 
-// Event Handlers
-document.getElementById('color-picker').addEventListener('click', () => {
-  selectedColor = getRandomColor();
-  alert(`Color selected: ${selectedColor}`);
-});
-
-document.getElementById('fill-bottle').addEventListener('click', () => {
-  if (!selectedColor) {
-    alert('Pick a color first!');
-    return;
-  }
-  drawBottle(100, 100, 50, 200, selectedColor);
-  updateScore(10);
-  selectedColor = null;
-});
-
-document.getElementById('customize-btn').addEventListener('click', () => {
-  const newTitle = prompt('Enter a new game name:', 'Bottle Filling Game');
-  if (newTitle) {
-    document.getElementById('game-title').innerText = newTitle;
-  }
-});
-
-// Ad Redirection
-setInterval(() => {
-  window.open('https://www.profitablecpmrate.com/szzecg3n?key=5aef42f02f7fda344aacbb6245bb9b27', '_blank');
-}, 15000);
-
-// Initial Setup
-function initGame() {
-  clearCanvas();
-  drawBottle(100, 100, 50, 200);
+.game-area {
+  position: relative;
 }
 
-initGame();
+#game-canvas {
+  background: #000;
+  border: 2px solid #ddd;
+  display: block;
+  margin: 0 auto;
+}
+
+.controls {
+  margin-top: 10px;
+}
+
+.ad-space {
+  margin-bottom: 10px;
+  background-color: #fff;
+  padding: 10px;
+  border: 2px dashed #ccc;
+  text-align: center;
+}
