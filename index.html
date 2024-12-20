@@ -3,25 +3,63 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Image Viewer with Play Button</title>
-  
-  <!-- Open Graph Meta Tags for Facebook and Social Media -->
-  <meta property="og:title" content="Amazing Image Viewer with Play Button">
-  <meta property="og:description" content="An awesome image viewer with a play button for interaction!">
-  <meta property="og:image" content="https://media-hosting.imagekit.io//60d42435c34742a7/1000120503.jpg?Expires=1734901055&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=GgOAwoNb7c8E4OYhpWZVNGi0P~H3u6K4WfYpWegNLhyZa0t9aopQwfllCv0WXrpDkdknWP5SW1-JpG4XuX0yYBFQhm7vIz1o31cLhztpOY35r0y0FPqniHz5rKVboCHAYkwYA~yNQOeSmZ5dj5donUzLLGNcPKzPEz1g1dyGN7IGYYm2~sEIefvv~NIrYM6Hzi46zGfyOejWuIL8aznMe-od2NkhCqUAvd27vMPWodUEPSlOnMGYswDwziz8~VYhaC~BD~EL~LX3VxyqL3GjSjYU8donSD5H3ZiFcnCPcuCvpTngPwOe80XlZQJMeKAHwQs7REKdtGWC1ZCLcGWd6w__">
-  <meta property="og:url" content="https://yourwebsite.com"> <!-- Your website link -->
-  <meta property="og:type" content="website">
+  <title>Image with Play Button</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f2f2f2;
+    }
 
-  <!-- Twitter Card Meta Tags for Twitter Preview -->
-  <meta name="twitter:card" content="player"> <!-- Use "player" for video-like preview -->
-  <meta name="twitter:title" content="Amazing Image Viewer with Play Button">
-  <meta name="twitter:description" content="An awesome image viewer with a play button for interaction!">
-  <meta name="twitter:image" content="https://media-hosting.imagekit.io//60d42435c34742a7/1000120503.jpg?Expires=1734901055&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=GgOAwoNb7c8E4OYhpWZVNGi0P~H3u6K4WfYpWegNLhyZa0t9aopQwfllCv0WXrpDkdknWP5SW1-JpG4XuX0yYBFQhm7vIz1o31cLhztpOY35r0y0FPqniHz5rKVboCHAYkwYA~yNQOeSmZ5dj5donUzLLGNcPKzPEz1g1dyGN7IGYYm2~sEIefvv~NIrYM6Hzi46zGfyOejWuIL8aznMe-od2NkhCqUAvd27vMPWodUEPSlOnMGYswDwziz8~VYhaC~BD~EL~LX3VxyqL3GjSjYU8donSD5H3ZiFcnCPcuCvpTngPwOe80XlZQJMeKAHwQs7REKdtGWC1ZCLcGWd6w__">
-  <meta name="twitter:url" content="https://yourwebsite.com"> <!-- Your website link -->
+    .container {
+      position: relative;
+      width: 80%;
+      max-width: 600px;
+      height: 400px;
+      background-image: url('https://i.imgur.com/1QVfr4S.jpeg');
+      background-size: cover;
+      background-position: center;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
 
-  <link rel="stylesheet" href="styles.css">
+    .play-button {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      padding: 20px 40px;
+      background-color: rgba(0, 0, 0, 0.6);
+      color: white;
+      font-size: 24px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      opacity: 0.8;
+      transition: opacity 0.3s;
+    }
+
+    .play-button:hover {
+      opacity: 1;
+    }
+  </style>
 </head>
 <body>
-  <div class="image-container">
-    <!-- Thumbnail Image Section -->
-    <img id="image-display" src="https://media-hosting.imagekit.io//60d42435c34742a7/1000120503.jpg?Expires=1734901055&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=GgOAwoNb7c8E4OYhpWZVNGi0P~H3u6K4WfYpWegNLhyZa0t9aopQwfllCv0WXrpDkdknWP5SW1-JpG4XuX0yYBFQhm7vIz1o31cLhztpOY35r0y0FPqniHz5rKVboCHAYkwYA~yNQOeSm
+
+  <div class="container">
+    <button class="play-button" onclick="openAd()">Play</button>
+  </div>
+
+  <script>
+    function openAd() {
+      // Redirect to the ad URL
+      window.open('https://www.example.com', '_blank');
+    }
+  </script>
+
+</body>
+</html>
