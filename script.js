@@ -33,6 +33,8 @@ header {
   margin: auto;
   background: #000;
   border: 2px solid #ddd;
+  width: 100%;  /* Responsive width */
+  height: 400px;  /* Fixed height for now (can be adjusted based on screen size) */
 }
 
 .controls {
