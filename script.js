@@ -1,37 +1,33 @@
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #f0f0f0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  flex-direction: column;
+// Image URLs to display
+const images = [
+  "https://via.placeholder.com/600x400?text=Image+1",
+  "https://via.placeholder.com/600x400?text=Image+2",
+  "https://via.placeholder.com/600x400?text=Image+3"
+];
+
+let currentImageIndex = 0; // Track current image index
+let countdown = 5; // Countdown time for ad (in seconds)
+
+// Function to change the image
+function changeImage() {
+  currentImageIndex = (currentImageIndex + 1) % images.length; // Loop through images
+  document.getElementById("image-display").src = images[currentImageIndex];
 }
 
-.image-viewer {
-  text-align: center;
+// Function to update the countdown timer
+function updateCountdown() {
+  document.getElementById("countdown").textContent = countdown;
+  countdown--;
+
+  if (countdown < 0) {
+    // Open ad in a new tab after 5 seconds
+    window.open("https://www.profitablecpmrate.com/szzecg3n?key=5aef42f02f7fda344aacbb6245bb9b27", "_blank");
+    countdown = 5; // Reset countdown
+  }
 }
 
-.image {
-  width: 100%;
-  max-width: 600px;
-  height: auto;
-  margin-bottom: 20px;
-}
+// Change image every 5 seconds
+setInterval(changeImage, 5000);
 
-.ad-space {
-  margin-top: 20px;
-}
-
-.ad-banner {
-  width: 100%;
-  max-width: 600px;
-  height: auto;
-  border: 2px dashed #ddd;
-}
-
-#countdown {
-  font-weight: bold;
-  color: red;
-}
+// Update countdown every second
+setInterval(updateCountdown, 1000);
