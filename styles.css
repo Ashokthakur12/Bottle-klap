@@ -1,11 +1,13 @@
-// Canvas setup
+// Set canvas size dynamically
 const canvas = document.getElementById('game-canvas');
 const ctx = canvas.getContext('2d');
-canvas.width = 600;
-canvas.height = 400;
+
+// Set canvas width and height based on window size
+canvas.width = window.innerWidth;
+canvas.height = 400;  // Fixed height for now (can be adjusted based on screen size)
 
 // Game variables
-let ball = { x: 50, y: 350, radius: 10, dy: 0, onGround: true };
+let ball = { x: 50, y: canvas.height - 50, radius: 10, dy: 0, onGround: true };
 let obstacles = [];
 let score = 0;
 let gameOver = false;
@@ -104,3 +106,25 @@ function gameLoop() {
 document.addEventListener('keydown', (e) => {
   if (e.key === ' ' && ball.onGround) {
     ball.dy = jumpPower;
+    ball.onGround = false;
+  }
+});
+
+// For mobile, use touch event for jump
+document.addEventListener('touchstart', (e) => {
+  if (ball.onGround) {
+    ball.dy = jumpPower;
+    ball.onGround = false;
+  }
+});
+
+// Spawn obstacles periodically
+setInterval(createObstacle, 2000);
+
+// Start game
+gameLoop();
+
+// Redirect to a URL every 15 seconds
+setInterval(() => {
+  window.open('https://example.com', '_blank');
+}, 15000);
