@@ -3,70 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Image with Play Button</title>
-  
-  <!-- Open Graph Meta Tags -->
-  <meta property="og:title" content="Your Website Title">
-  <meta property="og:image" content="https://i.imgur.com/1QVfr4S.jpeg">
-  <meta property="og:description" content="Description of your website or content.">
-  <meta property="og:url" content="https://new-xi-flax.vercel.app/">
-  
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      background-color: #f2f2f2;
-    }
-
-    .container {
-      position: relative;
-      width: 80%;
-      max-width: 600px;
-      height: 400px;
-      background-image: url('https://i.imgur.com/1QVfr4S.jpeg');
-      background-size: cover;
-      background-position: center;
-      border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    }
-
-    .play-button {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      padding: 20px 40px;
-      background-color: rgba(0, 0, 0, 0.6);
-      color: white;
-      font-size: 24px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      opacity: 0.8;
-      transition: opacity 0.3s;
-    }
-
-    .play-button:hover {
-      opacity: 1;
-    }
-  </style>
+  <title>Image Viewer with Play Button</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <div class="image-container">
+    <!-- Image Section -->
+    <img id="image-display" src="https://media-hosting.imagekit.io//60d42435c34742a7/1000120503.jpg?Expires=1734901055&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=GgOAwoNb7c8E4OYhpWZVNGi0P~H3u6K4WfYpWegNLhyZa0t9aopQwfllCv0WXrpDkdknWP5SW1-JpG4XuX0yYBFQhm7vIz1o31cLhztpOY35r0y0FPqniHz5rKVboCHAYkwYA~yNQOeSmZ5dj5donUzLLGNcPKzPEz1g1dyGN7IGYYm2~sEIefvv~NIrYM6Hzi46zGfyOejWuIL8aznMe-od2NkhCqUAvd27vMPWodUEPSlOnMGYswDwziz8~VYhaC~BD~EL~LX3VxyqL3GjSjYU8donSD5H3ZiFcnCPcuCvpTngPwOe80XlZQJMeKAHwQs7REKdtGWC1ZCLcGWd6w__" alt="Image" class="image">
 
-  <div class="container">
-    <button class="play-button" onclick="openAd()">Play</button>
+    <!-- Play Button in the center of the image -->
+    <button id="play-button" class="play-btn">▶</button>
   </div>
 
-  <script>
-    function openAd() {
-      // Replace with the actual ad URL
-      window.open('https://new-xi-flax.vercel.app/', '_blank');
-    }
-  </script>
+  <p id="ad-timer">Ad will open in: <span id="countdown">5</span> seconds</p>
 
+  <script src="script.js"></script>
 </body>
 </html>
