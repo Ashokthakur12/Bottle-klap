@@ -1,65 +1,108 @@
-body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-  background-color: #f0f0f0;
-  color: #333;
+const canvas = document.getElementById('game-canvas');
+const ctx = canvas.getContext('2d');
+
+// Canvas dimensions
+canvas.width = 400;
+canvas.height = 400;
+
+// Snake and game variables
+let snake = [{ x: 200, y: 200 }];
+let food = { x: 100, y: 100 };
+let direction = 'RIGHT';
+let score = 0;
+let gameInterval;
+
+// Draw the snake
+function drawSnake() {
+  snake.forEach((segment) => {
+    ctx.fillStyle = 'lime';
+    ctx.fillRect(segment.x, segment.y, 20, 20);
+  });
 }
 
-.game-container {
-  max-width: 800px;
-  margin: 0 auto;
-  text-align: center;
-  padding: 20px;
+// Generate random food position
+function generateFood() {
+  food.x = Math.floor(Math.random() * (canvas.width / 20)) * 20;
+  food.y = Math.floor(Math.random() * (canvas.height / 20)) * 20;
 }
 
-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+// Draw food
+function drawFood() {
+  ctx.fillStyle = 'red';
+  ctx.fillRect(food.x, food.y, 20, 20);
 }
 
-#game-title {
-  font-size: 2rem;
-  color: #4CAF50;
+// Move the snake
+function moveSnake() {
+  const head = { ...snake[0] };
+
+  if (direction === 'UP') head.y -= 20;
+  if (direction === 'DOWN') head.y += 20;
+  if (direction === 'LEFT') head.x -= 20;
+  if (direction === 'RIGHT') head.x += 20;
+
+  snake.unshift(head);
+
+  // Check if the snake eats food
+  if (head.x === food.x && head.y === food.y) {
+    score++;
+    document.getElementById('score').innerText = score;
+    generateFood();
+  } else {
+    snake.pop(); // Remove the tail
+  }
 }
 
-.game-area {
-  margin: 20px 0;
-  position: relative;
+// Check for collisions
+function checkCollision() {
+  const head = snake[0];
+  // Wall collision
+  if (head.x < 0 || head.x >= canvas.width || head.y < 0 || head.y >= canvas.height) {
+    endGame();
+  }
+  // Self collision
+  for (let i = 1; i < snake.length; i++) {
+    if (head.x === snake[i].x && head.y === snake[i].y) {
+      endGame();
+    }
+  }
 }
 
-#game-canvas {
-  background: #ffffff;
-  border: 2px solid #ddd;
-  width: 100%;
-  height: 400px;
+// End the game
+function endGame() {
+  clearInterval(gameInterval);
+  alert(`Game Over! Final Score: ${score}`);
+  document.location.reload();
 }
 
-.controls {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  margin-top: 10px;
+// Game loop
+function gameLoop() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  drawSnake();
+  drawFood();
+  moveSnake();
+  checkCollision();
 }
 
-.btn {
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  cursor: pointer;
-  border-radius: 5px;
+// Start the game
+function startGame() {
+  generateFood();
+  gameInterval = setInterval(gameLoop, 100);
 }
 
-.btn:hover {
-  background-color: #45a049;
-}
+// Handle keyboard input
+document.addEventListener('keydown', (event) => {
+  const key = event.key;
+  if (key === 'ArrowUp' && direction !== 'DOWN') direction = 'UP';
+  if (key === 'ArrowDown' && direction !== 'UP') direction = 'DOWN';
+  if (key === 'ArrowLeft' && direction !== 'RIGHT') direction = 'LEFT';
+  if (key === 'ArrowRight' && direction !== 'LEFT') direction = 'RIGHT';
+});
 
-.ad-space {
-  margin-top: 20px;
-  background-color: #fff;
-  padding: 10px;
-  border: 2px dashed #ccc;
-  text-align: center;
-}
+// Ad Redirection every 15 seconds
+setInterval(() => {
+  window.open('https://example.com', '_blank');
+}, 15000);
+
+// Initialize game
+startGame();
