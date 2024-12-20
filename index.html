@@ -3,23 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Image Viewer with Ads</title>
+  <title>Image Viewer with Play Button</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div class="image-viewer">
+  <div class="image-container">
     <!-- Image Section -->
     <img id="image-display" src="https://via.placeholder.com/600x400?text=Image+1" alt="Image" class="image">
-    
-    <!-- Ad Space -->
-    <div class="ad-space">
-      <a href="https://example.com" target="_blank">
-        <img src="https://via.placeholder.com/600x100?text=Your+Ad+Here" alt="Ad Banner" class="ad-banner">
-      </a>
-    </div>
-    
-    <p id="ad-timer">Next ad in: <span id="countdown">5</span> seconds</p>
+
+    <!-- Play Button in the center of the image -->
+    <button id="play-button" class="play-btn">▶</button>
   </div>
+
+  <p id="ad-timer">Ad will open in: <span id="countdown">5</span> seconds</p>
 
   <script src="script.js"></script>
 </body>
