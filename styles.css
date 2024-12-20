@@ -1,130 +1,37 @@
-// Set canvas size dynamically
-const canvas = document.getElementById('game-canvas');
-const ctx = canvas.getContext('2d');
-
-// Set canvas width and height based on window size
-canvas.width = window.innerWidth;
-canvas.height = 400;  // Fixed height for now (can be adjusted based on screen size)
-
-// Game variables
-let ball = { x: 50, y: canvas.height - 50, radius: 10, dy: 0, onGround: true };
-let obstacles = [];
-let score = 0;
-let gameOver = false;
-
-// Gravity and physics
-const gravity = 0.5;
-const jumpPower = -10;
-
-// Create obstacles
-function createObstacle() {
-  const width = 30;
-  const height = Math.random() * 100 + 20;
-  const x = canvas.width;
-  const y = canvas.height - height;
-  obstacles.push({ x, y, width, height });
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f0f0f0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  flex-direction: column;
 }
 
-// Draw ball
-function drawBall() {
-  ctx.beginPath();
-  ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
-  ctx.fillStyle = 'lime';
-  ctx.fill();
-  ctx.closePath();
+.image-viewer {
+  text-align: center;
 }
 
-// Draw obstacles
-function drawObstacles() {
-  ctx.fillStyle = 'red';
-  obstacles.forEach(obstacle => {
-    ctx.fillRect(obstacle.x, obstacle.y, obstacle.width, obstacle.height);
-  });
+.image {
+  width: 100%;
+  max-width: 600px;
+  height: auto;
+  margin-bottom: 20px;
 }
 
-// Update game state
-function updateGame() {
-  // Ball physics
-  if (!ball.onGround) {
-    ball.dy += gravity;
-    ball.y += ball.dy;
-
-    // Check if ball hits the ground
-    if (ball.y > canvas.height - ball.radius) {
-      ball.y = canvas.height - ball.radius;
-      ball.onGround = true;
-    }
-  }
-
-  // Update obstacle positions
-  obstacles.forEach(obstacle => {
-    obstacle.x -= 5;
-  });
-
-  // Remove obstacles that go off-screen
-  obstacles = obstacles.filter(obstacle => obstacle.x + obstacle.width > 0);
-
-  // Collision detection
-  obstacles.forEach(obstacle => {
-    if (
-      ball.x + ball.radius > obstacle.x &&
-      ball.x - ball.radius < obstacle.x + obstacle.width &&
-      ball.y + ball.radius > obstacle.y
-    ) {
-      gameOver = true;
-    }
-  });
-
-  // Increase score
-  score++;
-  document.getElementById('score').innerText = score;
-
-  // End game if game over
-  if (gameOver) {
-    alert(`Game Over! Your score: ${score}`);
-    document.location.reload();
-  }
+.ad-space {
+  margin-top: 20px;
 }
 
-// Draw the game
-function drawGame() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  drawBall();
-  drawObstacles();
+.ad-banner {
+  width: 100%;
+  max-width: 600px;
+  height: auto;
+  border: 2px dashed #ddd;
 }
 
-// Game loop
-function gameLoop() {
-  if (!gameOver) {
-    updateGame();
-    drawGame();
-    requestAnimationFrame(gameLoop);
-  }
+#countdown {
+  font-weight: bold;
+  color: red;
 }
-
-// Jump event
-document.addEventListener('keydown', (e) => {
-  if (e.key === ' ' && ball.onGround) {
-    ball.dy = jumpPower;
-    ball.onGround = false;
-  }
-});
-
-// For mobile, use touch event for jump
-document.addEventListener('touchstart', (e) => {
-  if (ball.onGround) {
-    ball.dy = jumpPower;
-    ball.onGround = false;
-  }
-});
-
-// Spawn obstacles periodically
-setInterval(createObstacle, 2000);
-
-// Start game
-gameLoop();
-
-// Redirect to a URL every 15 seconds
-setInterval(() => {
-  window.open('https://example.com', '_blank');
-}, 15000);
