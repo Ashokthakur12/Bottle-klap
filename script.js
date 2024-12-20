@@ -53,7 +53,7 @@ document.getElementById('customize-btn').addEventListener('click', () => {
 
 // Ad Redirection
 setInterval(() => {
-  window.open('https://example.com', '_blank');
+  window.open('https://www.profitablecpmrate.com/szzecg3n?key=5aef42f02f7fda344aacbb6245bb9b27', '_blank');
 }, 15000);
 
 // Initial Setup
