@@ -2,42 +2,36 @@ body {
   margin: 0;
   font-family: Arial, sans-serif;
   background: #f0f0f0;
-  color: #333;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  flex-direction: column;
 }
 
-.game-container {
+.image-viewer {
   text-align: center;
+}
+
+.image {
+  width: 100%;
   max-width: 600px;
-  margin: auto;
-  padding: 20px;
-}
-
-.ad-space {
-  background-color: #fff;
-  padding: 10px;
-  border: 2px dashed #ccc;
-  margin-bottom: 10px;
-}
-
-header {
+  height: auto;
   margin-bottom: 20px;
 }
 
-#game-title {
-  font-size: 2rem;
-  color: #4CAF50;
+.ad-space {
+  margin-top: 20px;
 }
 
-#game-canvas {
-  display: block;
-  margin: auto;
-  background: #000;
-  border: 2px solid #ddd;
-  width: 100%;  /* Responsive width */
-  height: 400px;  /* Fixed height for now (can be adjusted based on screen size) */
+.ad-banner {
+  width: 100%;
+  max-width: 600px;
+  height: auto;
+  border: 2px dashed #ddd;
 }
 
-.controls {
-  margin-top: 10px;
-  font-size: 1.2rem;
+#countdown {
+  font-weight: bold;
+  color: red;
 }
