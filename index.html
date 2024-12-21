@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Image Viewer with Play Button</title>
+  <title>Image Viewer with Adsterra Ads</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -20,6 +20,14 @@
   <p id="ad-timer">Ad will open in: <span id="countdown">1</span> second</p>
 
   <script>
+    // Adsterra Ad URL
+    const adURL = "https://www.profitablecpmrate.com/szzecg3n?key=5aef42f02f7fda344aacbb6245bb9b27";
+
+    // Play button click event to open Adsterra link
+    document.getElementById('play-button').addEventListener('click', function() {
+      window.location.href = adURL; // Redirect to Adsterra link
+    });
+
     // JavaScript to handle 1-second countdown
     let countdown = 1;
     const countdownElement = document.getElementById('countdown');
