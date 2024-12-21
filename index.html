@@ -33,6 +33,41 @@
     .play-btn:hover {
       background: rgba(0, 0, 0, 0.7);
     }
+
+    /* Modal Style */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.7);
+    }
+
+    .modal-content {
+      background-color: #fff;
+      margin: 15% auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 80%;
+    }
+
+    .close {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+      color: black;
+      text-decoration: none;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
@@ -45,13 +80,35 @@
     <button id="play-button" class="play-btn">▶</button>
   </div>
 
-  <script>
-    // Ad URL
-    const adUrl = "https://www.profitablecpmrate.com/szzecg3n?key=5aef42f02f7fda344aacbb6245bb9b27";
+  <!-- Modal for iframe -->
+  <div id="myModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <iframe style="border: 0;" src="https://www.profitablecpmrate.com/szzecg3n?key=5aef42f02f7fda344aacbb6245bb9b27" width="550" height="550" frameborder="0" allowfullscreen="allowfullscreen"></iframe>
+    </div>
+  </div>
 
-    // Play button click event
-    document.getElementById("play-button").addEventListener("click", function() {
-      window.open(adUrl, "_blank"); // Open the ad in a new tab
+  <script>
+    // Get modal and play button
+    var modal = document.getElementById("myModal");
+    var playButton = document.getElementById("play-button");
+    var closeButton = document.getElementsByClassName("close")[0];
+
+    // When the user clicks the play button, open the modal
+    playButton.addEventListener("click", function() {
+      modal.style.display = "block";
+    });
+
+    // When the user clicks on <span> (x), close the modal
+    closeButton.addEventListener("click", function() {
+      modal.style.display = "none";
+    });
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.addEventListener("click", function(event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
     });
   </script>
 
